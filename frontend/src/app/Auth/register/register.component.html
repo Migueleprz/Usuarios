@@ -1,0 +1,132 @@
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="text-center mt-5">
+<h1>Registro de Usuarios</h1>
+      <app-card>
+        <main class="form-signin">
+          <form [formGroup]="fgUsuario">
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <div class="mb-3">
+                    <label for="tipoDocumento" class="form-label">Tipo de documento</label>
+                    <input
+                      class="form-control"
+                      list="tipo_documento"
+                      id="tipoDocumento"
+                      placeholder="Tipo de Documento"
+                      formControlName="tipo_documento"
+                    >
+                    <datalist id="tipo_documento">
+                      <option value="CC">
+                      <option value="TI">
+                      <option value="CEXT">
+                      <option value="Pasaporte">
+                    </datalist>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <div class="mb-3">
+                    <label for="" class="form-label">Número de documento</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="" placeholder="name@example.com"
+                      formControlName="numero_documento"
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nombre" placeholder="nombre"
+                      formControlName="nombre"
+                    >
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <div class="mb-3">
+                    <label for="Apellido" class="form-label">Apellidos</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="Apellido"
+                      placeholder="apellidos"
+                      formControlName="apellido"
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <div class="mb-3">
+                    <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="fecha_nacimiento"
+                      placeholder="nombre"
+                      formControlName="fecha_nacimiento"
+                    >
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <div class="mb-3">
+                    <label for="ciudad_id" class="form-label">Ciudad</label>
+                    <select
+                      name="ciudad_id"
+                      id="ciudad_id"
+                      class="form-control"
+                      formControlName="ciudad_id"
+                    >
+                      <option *ngFor="let item of ciudades" value="{{item.id}}">{{item.nombre}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Correo</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      placeholder="nombre"
+                      formControlName="email"
+                    >
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      placeholder="password"
+                      formControlName="password"
+                    >
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="limpiar()">Limpiar Campos</button>
+              <button type="button" class="btn btn-primary" (click)="save()" data-bs-dismiss="modal">Guardar</button>
+            </div>
+          </form>
+        </main>
+      </app-card>
+    </div>
+  </div>
+</div>

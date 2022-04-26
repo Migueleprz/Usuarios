@@ -1,0 +1,238 @@
+<app-navbar></app-navbar>
+<div class="container mt-5">
+  <div class="row justify-content-center mt-3">
+    <div class="col-md-12">
+     <div class="table-responsive mt-5">
+       <div class="input-group mb-3">
+         <div class="input-group-prepend">
+           <span class="input-group-text bg-cyan border-0"><i class="bi bi-search"></i></span>
+         </div>
+         <input type="text" class="form-control border-cyan" placeholder="Buscar" (keyup)="applyFilter($event)" #input>
+       </div>
+       <app-card>
+         <table mat-table [dataSource]="dataSource" matSort>
+
+
+           <ng-container matColumnDef="tipo_documento">
+             <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-cyan"> Tipo de Documento</th>
+             <td mat-cell *matCellDef="let row"> {{row.tipo_documento}} </td>
+           </ng-container>
+
+
+           <ng-container matColumnDef="numero_documento">
+             <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-cyan"> Número de Documento</th>
+             <td mat-cell *matCellDef="let row"> {{row.numero_documento}} </td>
+           </ng-container>
+
+
+           <ng-container matColumnDef="nombre">
+             <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-cyan"> Nomnbres</th>
+             <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
+           </ng-container>
+
+
+           <ng-container matColumnDef="apellido">
+             <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-cyan"> Apellidos</th>
+             <td mat-cell *matCellDef="let row"> {{row.apellido}} </td>
+           </ng-container>
+
+
+
+           <ng-container matColumnDef="fecha_nacimiento">
+             <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-cyan">Fecha de Nacimiento</th>
+             <td mat-cell *matCellDef="let row"> {{row.fecha_nacimiento}} </td>
+           </ng-container>
+
+
+           <ng-container matColumnDef="ciudad">
+             <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-cyan">Ciudad</th>
+             <td mat-cell *matCellDef="let row"> {{row.ciudad}} </td>
+           </ng-container>
+
+           <ng-container matColumnDef="email">
+             <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-cyan">Correo</th>
+             <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+           </ng-container>
+
+
+
+           <!-- ID Column -->
+           <ng-container matColumnDef="id">
+             <th mat-header-cell *matHeaderCellDef mat-sort-header class="bg-cyan"> Acciones</th>
+             <td mat-cell *matCellDef="let row">
+               <button
+                 type="button"
+                 class="btn btn-sm btn-outline-primary"
+                 matTooltip="Editar Usuario"
+                 data-bs-toggle="modal"
+                 data-bs-target="#exampleModal"
+                 (click)="getUsuario(row.id)"
+               >
+                 <i class="bi bi-pencil-fill"></i>
+               </button>
+               <button
+                 type="button"
+                 class="btn btn-sm btn-outline-danger mx-2"
+                 matTooltip="Editar Usuario"
+                 (click)="eliminar(row.id)"
+
+               >
+                 <i class="bi bi-trash"></i>
+               </button>
+
+             </td>
+           </ng-container>
+
+           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+           <!-- Row shown when there is no matching data. -->
+           <tr class="mat-row" *matNoDataRow>
+             <td class="mat-cell" colspan="4">No hay registros que coincidan con: "{{input.value}}"</td>
+           </tr>
+         </table>
+
+         <mat-paginator
+           [pageSizeOptions]="[5, 10, 20, 50, 100]"
+           [length]="200"
+           showFirstLastButtons
+           aria-label="Seleccione una pagina">
+         </mat-paginator>
+       </app-card>
+     </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal animate__animated animate__fadeIn" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="fgUsuario">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="mb-3">
+                <label for="tipoDocumento" class="form-label">Tipo de documento</label>
+                <input
+                  class="form-control"
+                  list="tipo_documento"
+                  id="tipoDocumento"
+                  placeholder="Tipo de Documento"
+                  formControlName="tipo_documento"
+                >
+                <datalist id="tipo_documento">
+                  <option value="CC">
+                  <option value="TI">
+                  <option value="CEXT">
+                  <option value="Pasaporte">
+                </datalist>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div class="mb-3">
+                <label for="" class="form-label">Número de documento</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="" placeholder="name@example.com"
+                  formControlName="numero_documento"
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nombre" placeholder="nombre"
+                  formControlName="nombre"
+                >
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div class="mb-3">
+                <label for="Apellido" class="form-label">Apellidos</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="Apellido"
+                  placeholder="apellidos"
+                  formControlName="apellido"
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="mb-3">
+                <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="fecha_nacimiento"
+                  placeholder="nombre"
+                  formControlName="fecha_nacimiento"
+                >
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div class="mb-3">
+                <label for="ciudad_id" class="form-label">Ciudad</label>
+                <select
+                  name="ciudad_id"
+                  id="ciudad_id"
+                  class="form-control"
+                  formControlName="ciudad_id"
+                >
+                  <option *ngFor="let item of ciudades" value="{{item.id}}">{{item.nombre}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="mb-3">
+                <label for="email" class="form-label">Correo</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="nombre"
+                  formControlName="email"
+                >
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  placeholder="password"
+                  formControlName="password"
+                >
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="limpiar()">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="update()" data-bs-dismiss="modal">Actualizar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
